@@ -1,7 +1,9 @@
+#Import Necessary Libraries
 import requests
 from bs4 import BeautifulSoup
 import csv
 
+#Define the Base URL and CSV Headers
 def scrape_uci_datasets():
     base_url = "https://archive.ics.uci.edu/datasets"
 
@@ -15,7 +17,8 @@ def scrape_uci_datasets():
 
     data = []
 
-def scrape_dataset_details(dataset_url):
+    # Create a Function to Scrape Dataset Details
+    def scrape_dataset_details(dataset_url):
         response = requests.get(dataset_url)
         soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -56,7 +59,8 @@ def scrape_dataset_details(dataset_url):
             subject_area, associated_tasks, feature_type, instances, features
         ]
 
-def scrape_datasets(page_url):
+    # Create a Function to Scrape Dataset Listings
+    def scrape_datasets(page_url):
         response = requests.get(page_url)
         soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -75,4 +79,22 @@ def scrape_datasets(page_url):
             print(f"Scraping details for {dataset.text.strip()}...")
             dataset_details = scrape_dataset_details(dataset_link)
             data.append(dataset_details)
+        
+    # Loop Through Pages Using Pagination Parameters
+    skip = 0
+    take = 10
+    while True:
+        page_url = f"https://archive.ics.uci.edu/datasets?skip={skip}&take={take}&sort=desc&orderBy=NumHits&search="
+        print(f"Scraping page: {page_url}")
+        initial_data_count = len(data)
+        scrape_datasets(page_url)
+        if len(
+                data
+        ) == initial_data_count:  
+            break
+        skip += take    
+        
+    # scrape_datasets("https://archive.ics.uci.edu/datasets")
+    # return(data)
 
+scrape_uci_datasets()
