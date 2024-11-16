@@ -93,7 +93,16 @@ def scrape_uci_datasets():
         ) == initial_data_count:  
             break
         skip += take    
-        
+
+    # Save the Scraped Data to a CSV File
+    with open('uci_datasets.csv', 'w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(headers)
+        writer.writerows(data)
+
+
+    print("Scraping complete. Data saved to 'uci_datasets.csv'.")
+
     # scrape_datasets("https://archive.ics.uci.edu/datasets")
     # return(data)
 
