@@ -56,5 +56,23 @@ def scrape_dataset_details(dataset_url):
             subject_area, associated_tasks, feature_type, instances, features
         ]
 
+def scrape_datasets(page_url):
+        response = requests.get(page_url)
+        soup = BeautifulSoup(response.text, 'html.parser')
 
+
+        dataset_list = soup.find_all(
+            'a', class_='link-hover link text-xl font-semibold')
+
+
+        if not dataset_list:
+            print("No dataset links found")
+            return
+
+
+        for dataset in dataset_list:
+            dataset_link = "https://archive.ics.uci.edu" + dataset['href']
+            print(f"Scraping details for {dataset.text.strip()}...")
+            dataset_details = scrape_dataset_details(dataset_link)
+            data.append(dataset_details)
 
