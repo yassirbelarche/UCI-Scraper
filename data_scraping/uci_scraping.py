@@ -102,8 +102,3 @@ def scrape_uci_datasets():
 
 
     print("Scraping complete. Data saved to 'uci_datasets.csv'.")
-
-    # scrape_datasets("https://archive.ics.uci.edu/datasets")
-    # return(data)
-
-scrape_uci_datasets()
