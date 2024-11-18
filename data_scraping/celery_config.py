@@ -11,8 +11,8 @@ app.conf.broker_password = 'fkWeeIquwuNyO0qkj76Nl3NStpph3VKk'
 
 # Set periodic task schedule (using Celery Beat)
 app.conf.beat_schedule = {
-    'scrape-jobs-every-day': {
-        'task': 'tasks.scrape_job_data',
+    'scrape-jobs-every-10min': {
+        'task': 'uci_scraping.scrape_uci_datasets',
         'schedule': 600,  # Every 10 hours
     },
 }
