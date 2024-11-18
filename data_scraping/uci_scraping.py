@@ -1,9 +1,9 @@
+from celery_config import app
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-# import csv
 
-# Define the Base URL and CSV Headers
+@app.task
 def scrape_uci_datasets():
     base_url = "https://archive.ics.uci.edu/datasets"
 
