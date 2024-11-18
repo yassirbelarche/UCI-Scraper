@@ -1,5 +1,10 @@
 from data_scraping.uci_scraping import scrape_uci_datasets
+import pandas as pd
 
-scrape_uci_datasets()
-data = scrape_uci_datasets.data
-jsondata = {data[0][i]: [data[j][i] for j in range(1, len(data))] for i in range(len(data[0]))}
+def csv_to_dicts():
+
+    # data = scrape_uci_datasets() # Get the scraped data from the function
+
+    data = pd.read_csv('/workspaces/UCI-Scraper/data_scraped/uci_datasets.csv')
+    data_dicts =   data.to_dict(orient='records') # Convert the DataFrame to a list of dictionaries
+    return data_dicts 
