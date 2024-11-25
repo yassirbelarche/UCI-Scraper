@@ -1,4 +1,4 @@
-from data_scraping.uci_scraping import scrape_uci_datasets
+# from data_scraping.uci_scraping import scrape_uci_datasets
 import pandas as pd
 
 def csv_to_dicts():

@@ -14,10 +14,6 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
-// Start the server36
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 // Integrate Authentication Middleware
 const passport = require('./config/passport');
 app.use(passport.initialize());
@@ -32,9 +28,9 @@ const bcrypt = require('bcrypt');
 
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
-
+    
     // Example user (replace with DB lookup)
-    const user = { id: 1, username: 'testuser', password: '$2b$10$abc123' };
+    const user = { id: 1, username: 'testuser', password: '$2b$10$RDuVI0WL7SZeL4NizhU2XeUY6Ns66zreRIIpCqeZN.IOvycBd/8Ee' };
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.status(401).json({ message: 'Invalid credentials' });
@@ -50,3 +46,7 @@ app.use('/api', publicRoutes);
 // Import the route of Internal API for Python Integration
 const internalRoutes = require('./routes/internal');
 app.use('/internal', internalRoutes);
+
+// Start the server36
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
